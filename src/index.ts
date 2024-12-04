@@ -1,7 +1,7 @@
 import { definePreset } from '@unocss/core'
 import { rules } from '@/rules'
 import { shortcuts } from '@/shortcuts'
-import { theme } from '@/theme'
+import { extendTheme } from '@/theme'
 
 
 export interface PresetAnimationsOptions {
@@ -54,9 +54,9 @@ export const presetAnimations = definePreset((options: PresetAnimationsOptions =
 
   return {
     name: 'unocss-preset-animations',
-    theme,
     shortcuts: shortcuts(options),
     rules,
+    extendTheme: extendTheme(options),
   }
 })
 

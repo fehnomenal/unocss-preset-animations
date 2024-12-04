@@ -9,10 +9,11 @@ describe.concurrent('base', () => {
       const { css } = await uno.generate('animate-in')
 
       expect(css).toMatchInlineSnapshot(`
-      "/* layer: default */
-      @keyframes una-in{from{opacity:var(--una-enter-opacity,1);transform:translate3d(var(--una-enter-translate-x,0),var(--una-enter-translate-y,0),0) scale3d(var(--una-enter-scale,1),var(--una-enter-scale,1),var(--una-enter-scale,1)) rotate(var(--una-enter-rotate,0))}}
-      .animate-in{animation:una-in;animation-name:una-in;animation-duration:150ms;--una-enter-opacity:initial;--una-enter-scale:initial;--una-enter-rotate:initial;--una-enter-translate-x:initial;--una-enter-translate-y:initial;}"
-    `)
+        "/* layer: shortcuts */
+        .animate-in{animation:una-in 150ms cubic-bezier(0.4, 0, 0.2, 1) 1;--una-enter-opacity:initial;--una-enter-scale:initial;--una-enter-rotate:initial;--una-enter-translate-x:initial;--una-enter-translate-y:initial;}
+        /* layer: default */
+        @keyframes una-in{from{opacity:var(--una-enter-opacity,1);transform:translate3d(var(--una-enter-translate-x,0),var(--una-enter-translate-y,0),0) scale3d(var(--una-enter-scale,1),var(--una-enter-scale,1),var(--una-enter-scale,1)) rotate(var(--una-enter-rotate,0))}}"
+      `)
     })
 
 
@@ -20,10 +21,11 @@ describe.concurrent('base', () => {
       const { css } = await uno.generate('animate-out')
 
       expect(css).toMatchInlineSnapshot(`
-      "/* layer: default */
-      @keyframes una-out{to{opacity:var(--una-exit-opacity,1);transform:translate3d(var(--una-exit-translate-x,0),var(--una-exit-translate-y,0),0) scale3d(var(--una-exit-scale,1),var(--una-exit-scale,1),var(--una-exit-scale,1)) rotate(var(--una-exit-rotate,0))}}
-      .animate-out{animation:una-out;animation-name:una-out;animation-duration:150ms;--una-exit-opacity:initial;--una-exit-scale:initial;--una-exit-rotate:initial;--una-exit-translate-x:initial;--una-exit-translate-y:initial;}"
-    `)
+        "/* layer: shortcuts */
+        .animate-out{animation:una-out 150ms cubic-bezier(0.4, 0, 0.2, 1) 1;--una-exit-opacity:initial;--una-exit-scale:initial;--una-exit-rotate:initial;--una-exit-translate-x:initial;--una-exit-translate-y:initial;}
+        /* layer: default */
+        @keyframes una-out{to{opacity:var(--una-exit-opacity,1);transform:translate3d(var(--una-exit-translate-x,0),var(--una-exit-translate-y,0),0) scale3d(var(--una-exit-scale,1),var(--una-exit-scale,1),var(--una-exit-scale,1)) rotate(var(--una-exit-rotate,0))}}"
+      `)
     })
   })
 
@@ -34,7 +36,7 @@ describe.concurrent('base', () => {
     const uno = await generator({ theme: { duration: { DEFAULT: DURATION } } })
     const { css } = await uno.generate('animate-in')
 
-    expect(css).toContain(`animation-duration:${DURATION};`)
+    expect(css).toContain(` ${DURATION} `)
   })
 
 
@@ -50,7 +52,7 @@ describe.concurrent('base', () => {
         const uno = await generator({ presetOptions: { unit: UNIT, duration: DURATION } })
         const { css } = await uno.generate('animate-in')
 
-        expect(css).toContain(`animation-duration:${DURATION}${UNIT}`)
+        expect(css).toContain(` ${DURATION}${UNIT} `)
       })
 
 
@@ -60,7 +62,7 @@ describe.concurrent('base', () => {
         const uno = await generator({ presetOptions: { duration: DURATION } })
         const { css } = await uno.generate('animate-in')
 
-        expect(css).toContain(`animation-duration:${DURATION}${DEFAULT_UNIT}`)
+        expect(css).toContain(` ${DURATION}${DEFAULT_UNIT} `)
       })
     })
 
@@ -110,14 +112,14 @@ describe.concurrent('base', () => {
         const uno = await generator({ presetOptions: { duration: DURATION } })
         const { css } = await uno.generate('animate-in')
 
-        expect(css).toContain(`animation-duration:${DURATION}${DEFAULT_UNIT}`)
+        expect(css).toContain(` ${DURATION}${DEFAULT_UNIT} `)
       })
 
 
       it('should fallback to default "animation-duration" if no value is provided', async ({ expect }) => {
         const { css } = await uno.generate('animate-in')
 
-        expect(css).toContain('animation-duration')
+        expect(css).toContain(` ${uno.config.theme.duration?.DEFAULT ?? '<oh no>'} `)
       })
     })
 
@@ -186,7 +188,7 @@ describe.concurrent('base', () => {
         const uno = await generator({ presetOptions: { timingFunction: TIMING_FUNCTION } })
         const { css } = await uno.generate('animate-in')
 
-        expect(css).toContain(`animation-timing-function:${TIMING_FUNCTION}`)
+        expect(css).toContain(` ${TIMING_FUNCTION} `)
       })
 
 
