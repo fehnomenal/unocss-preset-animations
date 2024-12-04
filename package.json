@@ -1,5 +1,5 @@
 {
-  "name": "unocss-preset-animations",
+  "name": "@fehnomenal/unocss-preset-animations",
   "version": "1.1.0",
   "description": "💅 An animation preset for UnoCSS, which adapts the tailwindcss-animate plugin",
   "packageManager": "pnpm@9.14.4",
@@ -37,7 +37,7 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "release": "pnpm test:ci && bumpp",
+    "release": "pnpm test:ci && bumpp --no-tag --no-push && publish-git",
     "typecheck": "vue-tsc",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@aelita-dev/eslint-config": "3.10.0",
+    "@fehnomenal/git-publisher": "github:fehnomenal/git-publisher#semver:v1.0.3",
     "@iconify/json": "^2.2.278",
     "@types/dom-view-transitions": "^1.0.5",
     "@types/markdown-it": "^14.1.2",
